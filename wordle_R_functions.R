@@ -39,11 +39,27 @@ wordle1 <- function(letters_known, positions_known) {
 
 
 
+# gray is a vector containing the gray letters  
+# yellow is a list of length 5 where the i-th item is a vector of yellow letters in the i-th position.  Use c("") if there are no yellow letters in a given position
+# green is a vector of length 5 giving a green letter for each position if known.  Use "" for positions where no green letter is known.
+
+# # Example (the secret word was MINCE)
+# wordle2(
+#   gray = c("S", "D", "O", "H", "A", "U", "R", "B", "L", "F", "T"),
+#   yellow = list(
+#     "1" = c("C"),
+#     "2" = c("N"),
+#     "3" = c("I"),
+#     "4" = c(""),
+#     "5" = c("")),
+#   green = c("L1" = "", "L2" = "", "L3" = "", "L4" = "", "L5" = "E"))
 
 wordle2 <- function(gray, yellow, green) {
   require(dplyr)
   
   ##### Green Hints
+  
+  names(green) = paste0("L", 1:5)
   
   # All possible permutations that conform to the green hints
   
@@ -62,6 +78,8 @@ wordle2 <- function(gray, yellow, green) {
   
   
   ##### Yellow Hints
+  
+  names(yellow) = 1:5
   
   # Remove words that have letters coinciding with the yellow letters
   remove_yellow <- no_gray |> 
@@ -92,3 +110,4 @@ wordle2 <- function(gray, yellow, green) {
   
   return(valid_words)
 }
+
