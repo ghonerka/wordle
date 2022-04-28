@@ -43,17 +43,6 @@ wordle1 <- function(letters_known, positions_known) {
 # yellow is a list of length 5 where the i-th item is a vector of yellow letters in the i-th position.  Use c("") if there are no yellow letters in a given position
 # green is a vector of length 5 giving a green letter for each position if known.  Use "" for positions where no green letter is known.
 
-# Example
-wordle2(
-  gray = c("PSBMJTALUKCHND"),
-  yellow = list(
-    "1" = c(""),
-    "2" = c("E"),
-    "3" = c("E", "R"),
-    "4" = c("R"),
-    "5" = c("")),
-  green = c("L1" = "", "L2" = "O", "L3" = "", "L4" = "E", "L5" = "R"))
-
 wordle2 <- function(gray, yellow, green) {
   require(dplyr)
   
@@ -111,4 +100,15 @@ wordle2 <- function(gray, yellow, green) {
   
   return(valid_words)
 }
+
+# Example
+wordle2(
+  gray = c("PBOIUNADL"),
+  yellow = list(
+    "1" = c("S"),
+    "2" = c("T"),
+    "3" = c("E", "T"),
+    "4" = c("E"),
+    "5" = c("S")),
+  green = c("L1" = "", "L2" = "E", "L3" = "S", "L4" = "T", "L5" = ""))
 
