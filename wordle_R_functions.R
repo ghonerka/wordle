@@ -39,9 +39,29 @@ wordle1 <- function(letters_known, positions_known) {
 
 
 
-# gray is a vector containing the gray letters  
-# yellow is a list of length 5 where the i-th item is a vector of yellow letters in the i-th position.  Use c("") if there are no yellow letters in a given position
-# green is a vector of length 5 giving a green letter for each position if known.  Use "" for positions where no green letter is known.
+
+# ARGUMENTS
+#   gray:   A vector containing the dark gray letters, i.e. those which the 
+#           word is known NOT to contain.
+#   yellow: A list of length five where the i-th item is a vector of yellow
+#           letters in the i-th position.  Use c("") if there are no yellow
+#           letters in a given position.
+#   green:  A vector of length 5 giving a green letter for each position if
+#           known.  Use "" for positions where no green letter is known.
+#
+# OUTPUT
+#   A vector of all possible permutations of letters conforming to the clues.
+# 
+# USAGE
+#   wordle2(
+#     gray = c("ETOASDLCBNM"),
+#     yellow = list(
+#       "1" = c("R", "U"),
+#       "2" = c(""),
+#       "3" = c(""),
+#       "4" = c("U", "I"),
+#       "5" = c("")),
+#     green = c("L1" = "", "L2" = "", "L3" = "", "L4" = "", "L5" = ""))
 
 wordle2 <- function(gray, yellow, green) {
   require(dplyr)
@@ -58,9 +78,9 @@ wordle2 <- function(gray, yellow, green) {
   
   
   
-  ##### Gray Hints
+  ##### Dark Gray Hints
   
-  # Remove words that contain any gray letters
+  # Remove words that contain any dark gray letters
   gray <- unlist(strsplit(gray, split = ""))
   no_gray <- all_words |> 
     filter(!if_any(.fns = ~ .x %in% gray))
@@ -103,12 +123,12 @@ wordle2 <- function(gray, yellow, green) {
 
 # Example
 wordle2(
-  gray = c("PBOIUNADL"),
+  gray = c("ETOASDLCBNM"),
   yellow = list(
-    "1" = c("S"),
-    "2" = c("T"),
-    "3" = c("E", "T"),
-    "4" = c("E"),
-    "5" = c("S")),
-  green = c("L1" = "", "L2" = "E", "L3" = "S", "L4" = "T", "L5" = ""))
+    "1" = c("R", "U"),
+    "2" = c(""),
+    "3" = c(""),
+    "4" = c("U", "I"),
+    "5" = c("")),
+  green = c("L1" = "", "L2" = "", "L3" = "", "L4" = "", "L5" = ""))
 
