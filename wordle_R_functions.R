@@ -40,8 +40,10 @@ wordle1 <- function(letters_known, positions_known) {
 
 
 
+# wordle2 -----------------------------------------------------------------
+
 # ARGUMENTS
-#   gray:   A vector containing the dark gray letters, i.e. those which the 
+#   gray:   A string containing the dark gray letters, i.e. those which the 
 #           word is known NOT to contain.
 #   yellow: A list of length five where the i-th item is a vector of yellow
 #           letters in the i-th position.  Use c("") if there are no yellow
@@ -68,6 +70,7 @@ wordle2 <- function(gray, yellow, green) {
   
   ##### Green Hints
   
+  green <- toupper(green)
   names(green) = paste0("L", 1:5)
   
   # All possible permutations that conform to the green hints
@@ -80,15 +83,18 @@ wordle2 <- function(gray, yellow, green) {
   
   ##### Dark Gray Hints
   
+  gray <- toupper(gray)
+  
   # Remove words that contain any dark gray letters
   gray <- unlist(strsplit(gray, split = ""))
   no_gray <- all_words |> 
-    filter(!if_any(.fns = ~ .x %in% gray))
+    filter(!if_any(.cols = everything(), .fns = ~ .x %in% gray))
   
   
   
   ##### Yellow Hints
   
+  yellow <- yellow |> lapply(FUN = toupper)
   names(yellow) = 1:5
   
   # Remove words that have letters coinciding with the yellow letters
